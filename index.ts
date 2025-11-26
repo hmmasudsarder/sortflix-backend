@@ -3,7 +3,8 @@ import handler from "./api/shorts";
 
 const server = http.createServer((req, res) => {
   // --- CORS FIX ---
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001",);
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000",);
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", "true");
