@@ -8,6 +8,7 @@ const shorts_1 = __importDefault(require("./api/shorts"));
 const server = http_1.default.createServer((req, res) => {
     // --- CORS FIX ---
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+    res.setHeader("Access-Control-Allow-Origin", "shortflix-frontend.vercel.app");
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -18,7 +19,7 @@ const server = http_1.default.createServer((req, res) => {
         return res.end();
     }
     // ----------------
-    if (req.url === "/api/shorts" && req.method === "GET") {
+    if (req.url === "https://task-sortfilex.vercel.app/api/shorts" && req.method === "GET") {
         (0, shorts_1.default)(req, res);
     }
     else {
