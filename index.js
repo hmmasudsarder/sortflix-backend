@@ -5,21 +5,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("http"));
 const shorts_1 = __importDefault(require("./api/shorts"));
+const allowedOrigins = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://shortflix-frontend.vercel.app",
+];
 const server = http_1.default.createServer((req, res) => {
-    // --- CORS FIX ---
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
-    res.setHeader("Access-Control-Allow-Origin", "shortflix-frontend.vercel.app");
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    const origin = req.headers.origin;
+    if (typeof origin === "string" && allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+    }
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    // Handle preflight (OPTIONS request)
     if (req.method === "OPTIONS") {
         res.writeHead(204);
         return res.end();
     }
-    // ----------------
-    if (req.url === "https://task-sortfilex.vercel.app/api/shorts" && req.method === "GET") {
+    if (req.url === "/api/shorts" && req.method === "GET") {
         (0, shorts_1.default)(req, res);
     }
     else {
